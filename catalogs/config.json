@@ -1,0 +1,98 @@
+{
+    "configurations": [
+        {
+            "name": "test",
+            "policies": [
+              {
+                  "name": "XML-to-JSON-1.xml",
+                  "tokens": [
+                      {
+                          "xpath": "/XMLToJSON/Format",
+                          "value": "google"
+                      }
+                  ]
+              },
+                {
+                    "name": "Assign-Message-1.xml",
+                    "tokens": [
+                        {
+                            "xpath": "/AssignMessage/Set/Headers/Header[@name='ENV']",
+                            "value": "hello"
+                        }
+                    ]
+                }
+            ],
+            "proxies": [
+                {
+                    "name": "default.xml",
+                    "tokens": [
+                        {
+                            "xpath": "/ProxyEndpoint/HTTPProxyConnection/BasePath",
+                            "value": "/weatherapi"
+                        }
+                    ]
+                }
+            ],
+            "targets": [
+                {
+                    "name": "default.xml",
+                    "tokens": [
+                        {
+                            "xpath": "/TargetEndpoint/HTTPTargetConnection/URL",
+                            "value": "https://httpbin.org"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "prod",
+            "policies": [
+                {
+                    "name": "assignPayload.xml",
+                    "tokens": [
+                        {
+                            "xpath": "/AssignMessage/Add/Headers/Header[@name='TO_BE_REPLACED']",
+                            "value": "max-age=3600"
+                        },
+                        {
+                            "xpath": "/AssignMessage/Add/Headers/Header[@name='TO_BE_REPLACED']/@name",
+                            "value": "Cache-Control"
+                        }
+                    ]
+                },
+                {
+                    "name": "Assign-Message-1.xml",
+                    "tokens": [
+                        {
+                            "xpath": "/AssignMessage/Set/Headers/Header[@name='ENV']",
+                            "value": "PROD"
+                        }
+                    ]
+                }
+            ],
+            "proxies": [
+                {
+                    "name": "default.xml",
+                    "tokens": [
+                        {
+                            "xpath": "/ProxyEndpoint/HTTPProxyConnection/BasePath",
+                            "value": "/weatherapi"
+                        }
+                    ]
+                }
+            ],
+            "targets": [
+                {
+                    "name": "default.xml",
+                    "tokens": [
+                        {
+                            "xpath": "/TargetEndpoint/HTTPTargetConnection/URL",
+                            "value": "https://httpbin.org"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ProxyEndpoint name="default">
+    <Description/>
+    <PreFlow name="PreFlow">
+        <Request>
+        </Request>
+        <Response>
+        </Response>
+    </PreFlow>
+    <Flows>
+     <Flow name="Create Catalog - feature 10 - test master">
+       <Description>Create a new catalog item. test</Description>
+       <Request>
+       </Request>
+       <Response/>
+       <Condition>(proxy.pathsuffix MatchesPath "/feature10") and (request.verb = "POST")</Condition>
+</Flow>
+      <Flow name="Create Catalog - feature 13">
+       <Description>Create a new catalog item.</Description>
+       <Request>
+       </Request>
+       <Response/>
+       <Condition>(proxy.pathsuffix MatchesPath "/feature9") and (request.verb = "POST")</Condition>
+   </Flow>
+      <Flow name="flow feature 8">
+           <Description/>
+           <Request>
+           </Request>
+           <Response/>
+           <Condition>(proxy.pathsuffix MatchesPath "/feature8/*") and (request.verb = "GET")</Condition>
+       </Flow>
+      <Flow name="flow feature 7">
+           <Description/>
+           <Request>
+           </Request>
+           <Response/>
+           <Condition>(proxy.pathsuffix MatchesPath "/feature7/*") and (request.verb = "GET")</Condition>
+       </Flow>
+      <Flow name="flow status">
+           <Description/>
+           <Request>
+             <!--Step>
+                   <Name>RF-400BadRequest</Name>
+               </Step-->
+
+           </Request>
+           <Response/>
+           <Condition>(proxy.pathsuffix MatchesPath "/status/*") and (request.verb = "GET")</Condition>
+       </Flow>
+       <Flow name="Create Catalog">
+            <Description>Create a new catalog item.</Description>
+            <Request>
+            </Request>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/") and (request.verb = "POST")</Condition>
+        </Flow>
+    </Flows>
+    <PostFlow name="PostFlow">
+        <Request/>
+        <Response/>
+    </PostFlow>
+    <HTTPProxyConnection>
+        <BasePath>/sean-catalogs</BasePath>
+        <VirtualHost>default</VirtualHost>
+        <VirtualHost>secure</VirtualHost>
+    </HTTPProxyConnection>
+    <RouteRule name="default">
+        <TargetEndpoint>default</TargetEndpoint>
+    </RouteRule>
+</ProxyEndpoint>
